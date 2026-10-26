@@ -1,0 +1,20 @@
+PROJECT TEMPLATE
+================
+1. Copy everything between the two lines below.
+2. Open index.html and find "ADD NEW PROJECTS HERE".
+3. Paste it at the TOP of the list, right after the "[" (newest first).
+4. Fill in your own text. Keep the comma after the closing "}" so the next project still works.
+5. Save and push to GitHub.
+
+- link: your project's LIVE site address (what visitors will open and copy).
+- tags: as many as you like, e.g. ["JavaScript", "HTML", "Supabase", "Next.js"].
+- The project's icon appears on its own if its site has an Apple touch icon. Nothing to add.
+
+------------------------------------------------------------
+  {
+    title: "PROJECT NAME",
+    description: "DESCRIPTION",
+    link: "https://YOUR-USERNAME.github.io/YOUR-REPO/",
+    tags: ["TAG 1", "TAG 2", "TAG 3"]
+  },
+------------------------------------------------------------
