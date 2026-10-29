@@ -4,81 +4,199 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Harris Ali – Projects</title>
-<meta name="description" content="Projects by Harris Ali, junior web developer in Islamabad.">
-<meta name="theme-color" content="#0c111b">
+<meta name="description" content="Projects by Harris Ali, web developer.">
+<meta name="theme-color" content="#071516">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"dark"}catch(e){}</script>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"dark";if(localStorage.getItem("lite")==="1")document.documentElement.dataset.lite="1"}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root[data-theme="dark"]{--bg:#0c111b;--ink:#e8ecf5;--muted:#93a0b8;--line:#232c40;--accent:#6f8dff;--on-accent:#0c111b;--chip:#161e30;color-scheme:dark}
-  :root[data-theme="light"]{--bg:#eef1f6;--ink:#14213d;--muted:#55627d;--line:#c9d1e0;--accent:#2b59ff;--on-accent:#fff;--chip:#dfe5f1;color-scheme:light}
+  @property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+  :root[data-theme="dark"]{--bg:#071516;--ink:#f3f0dc;--muted:#a8b8a6;--line:rgba(255,255,255,.1);--card:rgba(14,38,38,.55);--accent:#c4af58;--accent2:#8fa04f;--on-accent:#0a1a16;--chip:rgba(255,255,255,.07);--spot:rgba(196,175,88,.13);--aur-op:.55;color-scheme:dark}
+  :root[data-theme="light"]{--bg:#f2f0e4;--ink:#14221c;--muted:#4f5f55;--line:rgba(20,34,28,.14);--card:rgba(255,255,255,.62);--accent:#3f6a3c;--accent2:#7a6a1f;--on-accent:#fff;--chip:rgba(20,34,28,.07);--spot:rgba(122,106,31,.13);--aur-op:.3;color-scheme:light}
+  :root{--ring:conic-gradient(from 0deg,#0d4547,#195843,#487041,#7f8a46,#b8a352,#7f8a46,#487041,#195843,#0d4547)}
+  @supports (background:conic-gradient(in oklch,red,blue)){:root{--ring:conic-gradient(in oklch from 0deg,#0d4547,#195843,#487041,#7f8a46,#b8a352,#7f8a46,#487041,#195843,#0d4547)}}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "IBM Plex Sans",system-ui,sans-serif}
-  main{max-width:760px;margin:0 auto;padding:max(56px,env(safe-area-inset-top)) 24px 96px}
-  .bar{display:flex;justify-content:flex-end;margin-bottom:24px}
-  #toggle{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:8px 14px;font:500 14px/1 "IBM Plex Sans",sans-serif;cursor:pointer}
-  header{display:flex;align-items:center;gap:28px;margin-bottom:44px}
-  .photo{width:124px;height:124px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);flex:none;background:var(--chip)}
-  h1{font:800 clamp(2.4rem,8vw,4rem)/1 "Bricolage Grotesque",system-ui,sans-serif;letter-spacing:-.03em;margin:0 0 12px}
-  .intro{color:var(--muted);max-width:50ch;margin:0}
-  ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-  li{display:flex;gap:20px;padding:28px 0;border-bottom:1px solid var(--line)}
-  .icon{width:60px;height:60px;border-radius:22%;flex:none;display:none;border:1px solid var(--line)}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "IBM Plex Sans",system-ui,sans-serif;overflow-x:hidden}
+  ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+
+  /* background: corner glows whose colours rotate as you scroll (--p = scroll progress 0..1) */
+  .bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--bg)}
+  .aurw{position:absolute;width:0;height:0;animation:idle 180s linear infinite}
+  .w1{right:0;top:0}
+  .w2{left:0;bottom:0;animation-direction:reverse}
+  @keyframes idle{to{transform:rotate(360deg)}}
+  .aur{position:absolute;left:-75vmax;top:-75vmax;width:150vmax;height:150vmax;border-radius:50%;background:var(--ring);opacity:var(--aur-op);filter:blur(30px);-webkit-mask-image:radial-gradient(circle,transparent 0,#000 10%,rgba(0,0,0,.9) 30%,transparent 70%);mask-image:radial-gradient(circle,transparent 0,#000 10%,rgba(0,0,0,.9) 30%,transparent 70%);transform:rotate(calc(var(--p,0)*var(--rot,300deg)));will-change:transform}
+  .w2 .aur{--rot:-260deg;left:-60vmax;top:-60vmax;width:120vmax;height:120vmax}
+  .spot{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(520px circle at var(--sx,50%) var(--sy,25%),var(--spot),transparent 60%)}
+  .progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:30;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--accent),var(--accent2))}
+
+  /* toggle */
+  #toggle{position:fixed;top:max(14px,env(safe-area-inset-top));right:16px;z-index:20;background:var(--card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:10px 16px;font:500 14px/1 "IBM Plex Sans",sans-serif;cursor:pointer;transition:transform .2s,border-color .3s}
+  #toggle:hover{transform:translateY(-1px);border-color:var(--accent)}
+
+  main{max-width:1040px;margin:0 auto;padding:max(88px,calc(env(safe-area-inset-top) + 64px)) 24px 96px}
+  .rise{opacity:0;transform:translateY(20px);animation:rise .85s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+  @keyframes rise{to{opacity:1;transform:none}}
+  header{display:flex;align-items:center;gap:32px;margin-bottom:64px}
+  .ring{padding:3px;border-radius:50%;flex:none;background:conic-gradient(from var(--a),var(--accent),var(--accent2),var(--accent));animation:rise .85s cubic-bezier(.2,.7,.2,1) forwards,spin 7s linear infinite;animation-delay:.05s,0s}
+  @keyframes spin{to{--a:360deg}}
+  .photo{display:block;width:124px;height:124px;border-radius:50%;object-fit:cover;border:4px solid var(--bg);background:var(--chip)}
+  h1{font:800 clamp(2.8rem,9vw,4.8rem)/1 "Bricolage Grotesque",system-ui,sans-serif;letter-spacing:-.035em;margin:0 0 16px;padding-bottom:.08em;background:linear-gradient(100deg,var(--ink) 15%,var(--accent) 50%,var(--accent2) 85%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rise .85s cubic-bezier(.2,.7,.2,1) .15s forwards,shine 9s ease-in-out infinite alternate}
+  @keyframes shine{to{background-position:100% 0}}
+  .intro{color:var(--muted);max-width:56ch;margin:0}
+  .w{display:inline-block;opacity:0;transform:translateY(.7em);animation:rise .6s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(.6s + var(--i)*26ms)}
+  .label{font:700 13px/1 "IBM Plex Sans",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 20px;display:flex;align-items:center;gap:14px}
+  .label::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  /* cards */
+  ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:22px}
+  li{opacity:0;transform:translateY(44px) scale(.96);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+  li.in{opacity:1;transform:none}
+  .card{position:relative;height:100%;display:flex;flex-direction:column;padding:26px;border-radius:20px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--s,1));transition:transform .18s ease-out,background-color .4s,border-color .4s}
+  .card.touching{--s:.985}
+  .card.touching::before,.card.touching::after{opacity:1}
+  .card.released{transition:transform .6s cubic-bezier(.2,1.5,.4,1),background-color .4s,border-color .4s}
+  .card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%),var(--accent),transparent 70%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .25s;pointer-events:none}
+  .card::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),var(--spot),transparent 65%);opacity:0;transition:opacity .25s;pointer-events:none}
+  .card:hover::before,.card:hover::after{opacity:1}
+  .head{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+  .icon{width:52px;height:52px;border-radius:22%;flex:none;display:none;border:1px solid var(--line)}
   li.has-icon .icon{display:block}
-  .body{min-width:0;flex:1}
-  h2{font:700 1.5rem/1.2 "Bricolage Grotesque",sans-serif;margin:0;letter-spacing:-.01em}
-  p{margin:8px 0 14px;max-width:60ch}
-  .tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
-  .tag{font-size:13px;line-height:1;background:var(--chip);color:var(--muted);border-radius:999px;padding:7px 11px}
-  .btns{display:flex;flex-wrap:wrap;gap:10px}
-  .btn{font:500 15px/1 "IBM Plex Sans",sans-serif;border-radius:8px;padding:11px 16px;cursor:pointer;text-decoration:none;display:inline-block}
+  li.in .icon{animation:pop .6s cubic-bezier(.3,1.6,.5,1) both;animation-delay:calc(var(--d,0s) + .25s)}
+  h2{font:700 1.55rem/1.15 "Bricolage Grotesque",sans-serif;margin:0;letter-spacing:-.015em}
+  p{margin:0 0 16px;color:var(--muted);font-size:16px}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 22px}
+  .tag{font-size:13px;line-height:1;background:var(--chip);color:var(--muted);border-radius:999px;padding:7px 12px;opacity:0}
+  .tag.lead{background:var(--accent);color:var(--on-accent);font-weight:500}
+  li.in .tag{animation:pop .5s cubic-bezier(.3,1.6,.5,1) both;animation-delay:calc(var(--d,0s) + .4s + var(--t)*70ms)}
+  @keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+  .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto}
+  .btn{font:500 15px/1 "IBM Plex Sans",sans-serif;border-radius:10px;padding:12px 18px;cursor:pointer;text-decoration:none;display:inline-block;transition:transform .2s ease-out,background-color .3s,border-color .3s,color .3s}
   .primary{background:var(--accent);color:var(--on-accent);border:1px solid var(--accent)}
   .ghost{background:none;color:var(--ink);border:1px solid var(--line)}
-  .btn:hover{filter:brightness(1.08)}
-  .btn:focus-visible,#toggle:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-  @media (max-width:560px){header{flex-direction:column;align-items:flex-start;gap:20px}li{gap:14px}.icon{width:48px;height:48px}}
+  .ghost:hover{border-color:var(--accent)}
+  .btn.copied{background:var(--accent2);border-color:var(--accent2);color:var(--on-accent);animation:bump .45s cubic-bezier(.3,1.6,.5,1)}
+  @keyframes bump{40%{transform:scale(1.12)}}
+  .btn:focus-visible,#toggle:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+  @media (max-width:640px){header{flex-direction:column;align-items:flex-start;gap:24px;margin-bottom:48px}main{padding-left:18px;padding-right:18px}.card{padding:22px}}
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .rise,.w,li,.tag,.ring,h1{opacity:1!important;transform:none!important}
+    .aurw{animation:none!important}.aur{transform:none!important}
+  }
+
+  #toggle{touch-action:manipulation}
+  #toast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:12px 18px;border-radius:999px;font-size:14px;line-height:1.4;max-width:calc(100% - 32px);text-align:center;transition:opacity .3s,transform .3s;z-index:40}
+  #toast.show{opacity:1;transform:translate(-50%,0)}
+  .tip{margin:44px 0 0;text-align:center;color:var(--muted);font-size:14px}
+
+  /* LITE MODE (double-click the theme button): keeps the look and most animation, drops only the expensive parts
+     (blur behind cards, big blurred rotating glows, mouse spotlight, endless loops, circular theme wipe) */
+  .lg{display:none;position:absolute;width:90vmax;height:90vmax;border-radius:50%;will-change:transform}
+  .lg1{right:-30vmax;top:-30vmax;background:radial-gradient(circle,rgba(184,163,82,.44),rgba(127,138,70,.22) 42%,transparent 70%);transform:translate(calc(var(--p,0)*-30vmax),calc(var(--p,0)*55vmax))}
+  .lg2{left:-30vmax;bottom:-30vmax;background:radial-gradient(circle,rgba(25,88,67,.8),rgba(13,69,71,.4) 42%,transparent 70%);transform:translate(calc(var(--p,0)*40vmax),calc(var(--p,0)*-45vmax))}
+  html[data-lite] .lg{display:block}
+  html[data-lite][data-theme="light"] .lg1{background:radial-gradient(circle,rgba(184,163,82,.4),rgba(127,138,70,.2) 42%,transparent 70%)}
+  html[data-lite][data-theme="light"] .lg2{background:radial-gradient(circle,rgba(72,112,65,.3),rgba(13,69,71,.12) 42%,transparent 70%)}
+  html[data-lite][data-theme="dark"]{--card:rgba(14,38,38,.92)}
+  html[data-lite][data-theme="light"]{--card:rgba(255,255,255,.92)}
+  html[data-lite] .card,html[data-lite] #toggle{backdrop-filter:none;-webkit-backdrop-filter:none}
+  html[data-lite] .aurw,html[data-lite] .spot{display:none}
+  html[data-lite] h1{animation:rise .85s cubic-bezier(.2,.7,.2,1) .15s forwards}
+  html[data-lite] .ring{animation:rise .85s cubic-bezier(.2,.7,.2,1) .05s forwards}
 </style>
 </head>
 <body>
+<div class="bg"><div class="aurw w1"><div class="aur"></div></div><div class="aurw w2"><div class="aur"></div></div><div class="lg lg1"></div><div class="lg lg2"></div></div>
+<div class="spot" id="spot"></div>
+<div class="progress" id="progress"></div>
+<button id="toggle" type="button" title="Click: switch theme. Double-click: lite mode for older devices" aria-label="Switch between dark and light theme. Double-click for lite mode, a lighter version for older devices">Light mode</button>
+
 <main>
-  <div class="bar"><button id="toggle" type="button" aria-label="Switch between dark and light theme">Light mode</button></div>
   <header>
-    <img class="photo" src="california.webp" alt="Photo of Harris Ali" onerror="this.style.visibility='hidden'">
+    <div class="ring"><img class="photo" src="harris.png" alt="Photo of Harris Ali" onerror="this.parentNode.style.display='none'"></div>
     <div>
       <h1>Harris Ali</h1>
-      <p class="intro">Junior web developer in Islamabad. Here’s what I’ve built.</p>
+      <p class="intro" id="intro">Hi, I’m Harris, a web developer. I like turning real problems into simple tools that people actually use, from websites for local businesses to small apps that make daily work easier. This is where I keep everything I build.</p>
     </div>
   </header>
+  <h3 class="label rise" style="--d:.9s">Projects</h3>
   <ul id="list"></ul>
+  <p class="tip">Page feeling slow? Double-click (or double-tap) the theme button for a lighter, faster version.</p>
 </main>
+<div id="toast" role="status" aria-live="polite"></div>
 
 <script>
 /* ================================================================
    ▼ ADD NEW PROJECTS HERE, at the top of the list (newest first) ▼
-   Copy the block from project-template.txt, paste it below, fill it in.
    ================================================================ */
 const PROJECTS = [
+  /* ---- TEMPLATE: remove the comment marks around this block, fill it in, paste it above the first project ----
   {
-    // ← THIS IS THE PLACEHOLDER. Replace it with your first real project.
-    title: "Your project name",
-    description: "A short description of what this project does.",
-    link: "https://YOUR-USERNAME.github.io/your-repo/",
+    title: "PROJECT NAME",
+    description: "DESCRIPTION",
+    link: "https://harrisali15-hue.github.io/YOUR-REPO/",
+    tags: ["MAIN TECH", "TECH 2", "TECH 3"]   // the first tag is highlighted
+  },
+  ---- END TEMPLATE ---- */
+  {
+    title: "Diecast Vault",
+    description: "A collection tracker for diecast model car fans. Create an account, add each car with photos, details and categories, and browse your collection as a searchable grid. You can add friends and look through their vaults, compare collection sizes on a leaderboard, and pick a colour theme. It installs on a phone like an app.",
+    link: "https://harrisali15-hue.github.io/Diecast-Vault/",
+    tags: ["HTML", "JavaScript", "Supabase"]
+  },
+  {
+    title: "Compass",
+    description: "A personal settling-in guide for someone moving from London to Melbourne. Quick-reference pages cover everyday needs like supermarkets, chemists, parks, halal food, getting around and emergency numbers, plus a workplace guide and a list of common mistakes to avoid. It also has a currency converter, a QR code page for sharing, a saved shopping list, a login screen and a light and dark mode. If you’re a visitor, use the username DEMO to log in.",
+    link: "https://harrisali15-hue.github.io/Compass/",
+    tags: ["HTML", "JavaScript", "CSS"]
+  },
+  {
+    title: "Doctor Aged Care",
+    description: "Demo only. A concept website for a Melbourne GP practice that visits aged-care facilities. It has a home page, about page, services, doctor profiles, partners, careers, patient forms, a Request a Doctor page for facility staff and a contact page. Built as a design demo, not the practice’s real site.",
+    link: "https://harrisali15-hue.github.io/Doctor-Aged-Care/",
     tags: ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    title: "Old Faithful Cafe",
+    description: "Demo only. A concept one-page website for a neighbourhood cafe, with an about section, a menu split into breakfast, lunch, bakery and drinks, a photo gallery, opening hours, and contact details with directions and social links. Built as a design demo, not the cafe’s official site.",
+    link: "https://harrisali15-hue.github.io/Oldfaithfulcafe/",
+    tags: ["CSS", "HTML", "JavaScript"]
+  },
+  {
+    title: "Parkstone Café",
+    description: "Demo only. A concept one-page website for a plant-filled brunch café, with a menu you can switch between categories, a photo gallery with an enlarged-photo view, opening hours, directions and contact details. Built as a design demo, not the café’s official site.",
+    link: "https://harrisali15-hue.github.io/Parkstonecafe/",
+    tags: ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    title: "TableTime",
+    description: "A times-table worksheet generator. Choose how many questions you want and which tables to practise, and it makes a print-ready PDF in seconds that you can open, share, print or download. It can be added to the home screen on a phone and used like an app.",
+    link: "https://harrisali15-hue.github.io/Table-Time/",
+    tags: ["JavaScript", "HTML"]
   }
 ];
 
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isLite = () => document.documentElement.hasAttribute("data-lite");
+const touchOK = !matchMedia("(prefers-reduced-motion: reduce)").matches && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+const fine = matchMedia("(hover: hover) and (pointer: fine)").matches && !reduce;
 const list = document.getElementById("list");
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const safeUrl = u => /^https?:\/\//.test(u || "") ? u : "";
 
-/* Finds a project's Apple touch icon: reads the page's own <link> tag, else tries the standard file name.
-   If nothing loads, no icon is shown. */
+/* intro: words rise in one after another */
+const intro = document.getElementById("intro");
+intro.innerHTML = intro.textContent.trim().split(/\s+/).map((w, i) => `<span class="w" style="--i:${i}">${esc(w)}</span>`).join(" ");
+
+/* Finds a project's Apple touch icon; if none loads, no icon is shown */
 async function findIcon(url){
   try{
     const r = await fetch(url);
@@ -91,13 +209,12 @@ async function findIcon(url){
     return new URL("apple-touch-icon.png", base).href;
   }catch(e){ return ""; }
 }
-
 function loadIcon(li, url){
   findIcon(url).then(src => {
     if (!src) return;
-    const test = new Image();
-    test.onload = () => { li.querySelector(".icon").src = src; li.classList.add("has-icon"); };
-    test.src = src;
+    const t = new Image();
+    t.onload = () => { li.querySelector(".icon").src = src; li.classList.add("has-icon"); };
+    t.src = src;
   });
 }
 
@@ -107,37 +224,145 @@ async function copyLink(url, btn){
     const t = document.createElement("textarea"); t.value = url; document.body.appendChild(t); t.select();
     try{ document.execCommand("copy"); }catch(_){} t.remove();
   }
-  const old = btn.textContent; btn.textContent = "Copied";
-  setTimeout(() => btn.textContent = old, 1500);
+  btn.textContent = "✓ Copied"; btn.classList.remove("copied"); void btn.offsetWidth; btn.classList.add("copied");
+  clearTimeout(btn._t);
+  btn._t = setTimeout(() => { btn.textContent = "Copy link"; btn.classList.remove("copied"); }, 1600);
 }
 
+/* build cards */
 PROJECTS.forEach(p => {
   const url = safeUrl(p.link);
   const li = document.createElement("li");
   li.innerHTML = `
-    <img class="icon" alt="" width="60" height="60">
-    <div class="body">
-      <h2>${esc(p.title)}</h2>
+    <div class="card">
+      <div class="head"><img class="icon" alt="" width="52" height="52"><h2>${esc(p.title)}</h2></div>
       <p>${esc(p.description)}</p>
-      <div class="tags">${(p.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+      <div class="tags">${(p.tags || []).map((t, i) => `<span class="tag${i === 0 ? " lead" : ""}" style="--t:${i}">${esc(t)}</span>`).join("")}</div>
       ${url ? `<div class="btns"><button type="button" class="btn ghost" data-copy>Copy link</button><a class="btn primary" href="${esc(url)}">Open link</a></div>` : ""}
     </div>`;
   list.appendChild(li);
+  const card = li.querySelector(".card");
   if (url){
     li.querySelector("[data-copy]").onclick = e => copyLink(url, e.currentTarget);
     loadIcon(li, url);
   }
+  if (touchOK){
+    /* finger drag = same wobble as the mouse. Touch events keep firing while the page scrolls, so cards wobble as you swipe past them */
+    const lean = e => {
+      const t = e.touches[0]; if (!t) return;
+      const r = card.getBoundingClientRect();
+      const px = Math.min(1, Math.max(0, (t.clientX - r.left) / r.width)), py = Math.min(1, Math.max(0, (t.clientY - r.top) / r.height));
+      card.style.setProperty("--mx", (px * r.width) + "px"); card.style.setProperty("--my", (py * r.height) + "px");
+      card.style.setProperty("--rx", ((.5 - py) * 11) + "deg"); card.style.setProperty("--ry", ((px - .5) * 14) + "deg");
+    };
+    const end = () => {
+      card.classList.remove("touching"); card.classList.add("released");
+      card.style.setProperty("--rx", "0deg"); card.style.setProperty("--ry", "0deg");
+      clearTimeout(card._rel); card._rel = setTimeout(() => card.classList.remove("released"), 650);
+    };
+    card.addEventListener("touchstart", e => { clearTimeout(card._rel); card.classList.remove("released"); card.classList.add("touching"); lean(e); }, { passive: true });
+    card.addEventListener("touchmove", lean, { passive: true });
+    card.addEventListener("touchend", end, { passive: true });
+    card.addEventListener("touchcancel", end, { passive: true });
+  }
+  if (fine){
+    card.addEventListener("pointermove", e => {
+      if (e.pointerType === "touch") return;
+      const r = card.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+      card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      card.style.setProperty("--my", (e.clientY - r.top) + "px");
+      card.style.setProperty("--rx", ((.5 - py) * 7) + "deg");
+      card.style.setProperty("--ry", ((px - .5) * 9) + "deg");
+    });
+    card.addEventListener("pointerleave", () => { card.style.setProperty("--rx", "0deg"); card.style.setProperty("--ry", "0deg"); });
+    li.querySelectorAll(".btn").forEach(b => {
+      b.addEventListener("pointermove", e => {
+        const r = b.getBoundingClientRect();
+        b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .22}px,${(e.clientY - r.top - r.height / 2) * .3}px)`;
+      });
+      b.addEventListener("pointerleave", () => b.style.transform = "");
+    });
+  }
 });
 
+/* scroll-in reveal, staggered */
+const items = [...list.children];
+if ("IntersectionObserver" in window && !reduce){
+  const io = new IntersectionObserver(entries => {
+    let n = 0;
+    entries.filter(e => e.isIntersecting).forEach(e => {
+      e.target.style.setProperty("--d", (n++ * .12) + "s");
+      e.target.classList.add("in");
+      io.unobserve(e.target);
+    });
+  }, { threshold: .12, rootMargin: "0px 0px -6% 0px" });
+  items.forEach(li => io.observe(li));
+} else items.forEach(li => li.classList.add("in"));
+
+/* mouse spotlight + scroll progress */
+const spot = document.getElementById("spot"), bar = document.getElementById("progress");
+let raf = 0, mx = innerWidth / 2, my = innerHeight * .25;
+if (fine) addEventListener("pointermove", e => {
+  if (isLite()) return;
+  mx = e.clientX; my = e.clientY;
+  if (!raf) raf = requestAnimationFrame(() => { spot.style.setProperty("--sx", mx + "px"); spot.style.setProperty("--sy", my + "px"); raf = 0; });
+});
+const root = document.documentElement;
+let target = 0, cur = 0, running = false;
+function frame(){
+  cur += (target - cur) * .09;
+  if (Math.abs(target - cur) < .0005){ cur = target; running = false; } else requestAnimationFrame(frame);
+  root.style.setProperty("--p", cur.toFixed(4));
+  bar.style.transform = `scaleX(${cur})`;
+}
+function onScroll(){
+  const h = root.scrollHeight - innerHeight;
+  target = h > 0 ? Math.min(1, scrollY / h) : 0;
+  if (!running){ running = true; requestAnimationFrame(frame); }
+}
+addEventListener("scroll", onScroll, { passive: true });
+addEventListener("resize", onScroll);
+onScroll();
+
+/* theme toggle with a circular colour wipe */
 const toggle = document.getElementById("toggle");
 const themeMeta = document.querySelector('meta[name="theme-color"]');
 function applyTheme(t){
   document.documentElement.dataset.theme = t;
   toggle.textContent = t === "dark" ? "Light mode" : "Dark mode";
-  themeMeta.content = t === "dark" ? "#0c111b" : "#eef1f6";
+  themeMeta.content = t === "dark" ? "#071516" : "#f2f0e4";
   try{ localStorage.setItem("theme", t); }catch(e){}
 }
-toggle.onclick = () => applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+function switchTheme(){
+  const t = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  if (!document.startViewTransition || reduce || isLite()) return applyTheme(t);
+  const r = toggle.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+  const rad = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+  document.startViewTransition(() => applyTheme(t)).ready.then(() => {
+    document.documentElement.animate(
+      { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${rad}px at ${x}px ${y}px)`] },
+      { duration: 700, easing: "ease-in-out", pseudoElement: "::view-transition-new(root)" }
+    );
+  });
+}
+const toast = document.getElementById("toast");
+let toastTimer = 0;
+function say(msg){
+  toast.textContent = msg; toast.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
+}
+function setLite(on){
+  document.documentElement.toggleAttribute("data-lite", on);
+  try{ localStorage.setItem("lite", on ? "1" : "0"); }catch(e){}
+  say(on ? "Lite mode on: same look, lighter on older devices. Double-click again to turn it off."
+         : "Lite mode off: full effects are back.");
+}
+/* one click switches the theme (after a short wait to see if a second click follows); two clicks toggle lite mode */
+let clickTimer = 0;
+toggle.onclick = () => {
+  if (clickTimer){ clearTimeout(clickTimer); clickTimer = 0; setLite(!isLite()); return; }
+  clickTimer = setTimeout(() => { clickTimer = 0; switchTheme(); }, 260);
+};
 applyTheme(document.documentElement.dataset.theme);
 </script>
 </body>
